@@ -13,8 +13,8 @@ apt install libopencv-dev -y
 ## BUILD
 
 ```bash
-git clone https://github.com/hikaright/POISSON_IMAGE_EDITING
-cd POISSON_IMAGE_EDITING
+git clone https://github.com/hikaright/CHROMAKEY
+cd CHROMAKEY
 make
 make install
 ```
