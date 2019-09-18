@@ -10,7 +10,6 @@ int main(int argc, char** argv){
     }
 
     Mat img = imread(argv[1]);
-    resize(img, img, Size(), 0.2, 0.2);
     Mat hsv = img.clone();
     cvtColor(hsv, hsv, CV_BGR2HSV);
     int height = img.rows, width = img.cols;
@@ -25,19 +24,6 @@ int main(int argc, char** argv){
                 alpha.at<uchar>(i, j) = 0;
             }
         }
-    }
-
-    Mat alpha_tmp;
-    for(int k=0; k<3; k++){
-        alpha_tmp = alpha.clone();
-        for(int i=0; i<height; i++){
-            for(int j=0; j<width; j++){
-                if(alpha.at<uchar>(i, j) == 255 && (alpha.at<uchar>(i-1, j) == 0 || alpha.at<uchar>(i, j+1) == 0 || alpha.at<uchar>(i+1, j) == 0 || alpha.at<uchar>(i, j-1) == 0)){
-                    alpha_tmp.at<uchar>(i, j) = 0;
-                }
-            }
-        }
-        alpha = alpha_tmp;
     }
 
     //アルファーチャンネル追加
