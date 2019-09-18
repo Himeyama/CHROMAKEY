@@ -10,21 +10,34 @@ int main(int argc, char** argv){
     }
 
     Mat img = imread(argv[1]);
+    resize(img, img, Size(), 0.2, 0.2);
     Mat hsv = img.clone();
     cvtColor(hsv, hsv, CV_BGR2HSV);
     int height = img.rows, width = img.cols;
     Mat alpha(height, width, CV_8UC1, 255);
-    //alpha = 255;
     
     for(int i=0; i<height; i++){
         for(int j=0; j<width; j++){
             int h = hsv.at<Vec3b>(i, j)[0];
             int s = hsv.at<Vec3b>(i, j)[1];
             int v = hsv.at<Vec3b>(i, j)[2];
-            if( 36 < h && h < 85 && 40 < s && 60 < v ){
+            if( 70 < h && h < 130 && 70 < s && 70 < v ){
                 alpha.at<uchar>(i, j) = 0;
             }
         }
+    }
+
+    Mat alpha_tmp;
+    for(int k=0; k<3; k++){
+        alpha_tmp = alpha.clone();
+        for(int i=0; i<height; i++){
+            for(int j=0; j<width; j++){
+                if(alpha.at<uchar>(i, j) == 255 && (alpha.at<uchar>(i-1, j) == 0 || alpha.at<uchar>(i, j+1) == 0 || alpha.at<uchar>(i+1, j) == 0 || alpha.at<uchar>(i, j-1) == 0)){
+                    alpha_tmp.at<uchar>(i, j) = 0;
+                }
+            }
+        }
+        alpha = alpha_tmp;
     }
 
     //アルファーチャンネル追加
