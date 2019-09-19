@@ -20,7 +20,7 @@ int main(int argc, char** argv){
             int h = hsv.at<Vec3b>(i, j)[0];
             int s = hsv.at<Vec3b>(i, j)[1];
             int v = hsv.at<Vec3b>(i, j)[2];
-            if( 70 < h && h < 130 && 70 < s && 70 < v ){
+            if( 40 < h && h < 90 && 70 < s && 70 < v ){
                 alpha.at<uchar>(i, j) = 0;
             }
         }
